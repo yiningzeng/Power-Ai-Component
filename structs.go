@@ -1,8 +1,13 @@
 package main
 
+type PowerAiTags struct {
+	Name  string `json:"name"`
+	Color string `json:"color"`
+}
+
 type PowerAiAsset struct {
 	Asset Asset `json:"asset"`
-	Regions []string `json:"regions"`
+	//Regions []string `json:"regions"`
 	Version string `json:"version"`
 }
 
@@ -14,7 +19,7 @@ type Asset struct {
 	Size   Size   `json:"size"`
 	State  int    `json:"state"`
 	Type   int    `json:"type"`
-	Sort   string `json:"sort"`
+	Tags   string `json:"tags"`
 }
 
 type Size struct {

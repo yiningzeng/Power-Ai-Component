@@ -8,3 +8,7 @@ test/
 powerAiDataHelper
 
 *.txt
+
+log/
+
+*.log

@@ -23,6 +23,7 @@ import (
 )
 
 //预声明变量
+var sort bool
 var startNum int
 var dirPath string
 var threadNum int
@@ -98,6 +99,7 @@ func flagInit() {
 	flag.StringVar(&dirPath, "path", ".", "the path must be input")
 	flag.IntVar(&threadNum, "tn", 100, "the default threadNum is 100")
 	flag.StringVar(&version, "v", version, "the version of monkeySun")
+	flag.BoolVar(&sort, "sort", false, "sort the list")
 	flag.Usage = func() {
 		flag.PrintDefaults()
 	}
@@ -152,7 +154,13 @@ func main() {
 	pool := gpool.New(threadNum)
 	fs := afero.NewOsFs()
 	// 由于linux上加载的远程文件夹遇到大量数据的情况下无法使用遍历文件的方法，只能先使用ls命令写入本地数据再处理
-	cmd := exec.Command("/bin/sh", "-c", "ls '" + dirPath + "' |grep .json > jsonList.txt")
+	var cmd *exec.Cmd
+	if sort {
+		cmd = exec.Command("/bin/sh", "-c", "ls -lr '" + dirPath + "' |grep .json|awk '{print $9}' > jsonList.txt")
+	} else {
+		cmd = exec.Command("/bin/sh", "-c", "ls '" + dirPath + "' |grep .json > jsonList.txt")
+	}
+
 	_, err := cmd.Output()
 	if err != nil {
 		logrus.Error(err)

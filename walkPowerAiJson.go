@@ -95,7 +95,7 @@ func read(fs afero.Fs, filePath string, pool *gpool.Pool) {
 
 //绑定参数变量
 func flagInit() {
-	flag.StringVar(&dirPath, "path", "/home/baymin/daily-work/data/NG-12.19/2020-12-18", "the path must be input")
+	flag.StringVar(&dirPath, "path", ".", "the path must be input")
 	flag.IntVar(&threadNum, "tn", 100, "the default threadNum is 100")
 	flag.StringVar(&version, "v", version, "the version of monkeySun")
 	flag.Usage = func() {
